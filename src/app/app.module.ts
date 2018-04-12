@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TodoTabComponent } from './todo-tab/todo-tab.component';
 import { GraphComponent } from './graph/graph.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { TodoListComponent } from './todo-list/todo-list.component';
     AppComponent,
     TodoTabComponent,
     GraphComponent,
-    TodoListComponent
+    TodoListComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule

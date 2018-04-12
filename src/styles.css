@@ -1,20 +1,61 @@
-@import '~roboto-fontface/css/roboto/roboto-fontface.css';
+/* You can add global styles to this file, and also import other style files */
+
 @font-face {
   font-family: 'Bariol-Regular';
   src: url("./assets/fonts/bariol_regular-webfont.woff");
 }
+
 @font-face {
   font-family: 'Bariol-Italic';
   src: url("./assets/fonts/bariol_regular_italic-webfont.woff");
 }
 
-/* You can add global styles to this file, and also import other style files */
 html {
-box-sizing: border-box;
--webkit-box-sizing: border-box;
-margin: 0;
-padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #e6af4b;
 }
-body{
-margin:0;
+
+body {
+  margin: 0;
+}
+
+.row {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/****************************************************************
+*styling shadows
+****************************************************************/
+.shadow {
+  position: relative;
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+}
+
+.shadow:before, .shadow:after {
+  position: absolute;
+  content: "";
+  bottom: 18px;
+  left: 15px;
+  top: 35%;
+  width: 45%;
+  background: #9B7468;
+  z-index: -1;
+  -webkit-box-shadow: 0 20px 15px #9B7468;
+  -moz-box-shadow: 0 20px 15px #9B7468;
+  box-shadow: 0 20px 15px #9B7468;
+  -webkit-transform: rotate(-6deg);
+  -moz-transform: rotate(-6deg);
+  transform: rotate(-6deg);
+}
+
+.shadow:after {
+  -webkit-transform: rotate(6deg);
+  -moz-transform: rotate(6deg);
+  transform: rotate(6deg);
+  right: 15px;
+  left: auto;
 }
