@@ -5,7 +5,7 @@ import {Todo} from '../model/todo';
 export class TodoService {
   lastId: 0;
 
-  todos: Todo[];
+  todos = new Array<Todo>();
 
   constructor() {
   }
