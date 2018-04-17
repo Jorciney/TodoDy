@@ -1,5 +1,5 @@
 export class Todo {
-  id: number;
+  id = -1;
   title: string;
   complete = false;
   children: Todo[];

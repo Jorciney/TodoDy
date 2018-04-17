@@ -6,10 +6,9 @@
   </div>
   <div>
     <ul>
-      <li *ngFor="let t of todos">
-        <label>{{t.title}}</label>
+      <li *ngFor="let t of todos" class="todo-list">
+        <app-todo-list [todo]="t"></app-todo-list>
       </li>
     </ul>
   </div>
-  <app-todo-list></app-todo-list>
 </div>

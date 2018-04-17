@@ -10,3 +10,11 @@
   outline: none;
   text-align: center;
 }
+
+.todo-list{
+  list-style-type: none;
+
+}
+ul{
+  -webkit-padding-start: 0;
+}

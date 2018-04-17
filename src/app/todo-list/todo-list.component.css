@@ -1,0 +1,13 @@
+.todo-title{
+  color:#334431;
+  font-family: Montserrat-Regular;
+}
+.todo-list-container{
+  width: 100%;
+  line-height: 1.7em;
+  background-color: #f2cbbc;
+  border: 1px solid #e6af4b;
+}
+.todo-complete{
+  text-decoration: line-through;
+}

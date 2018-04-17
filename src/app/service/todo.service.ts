@@ -3,15 +3,16 @@ import {Todo} from '../model/todo';
 
 @Injectable()
 export class TodoService {
-  lastId: 0;
+  lastId: number;
 
   todos = new Array<Todo>();
 
   constructor() {
+    this.lastId = 0;
   }
 
   public addTodo(todo: Todo) {
-    if (todo && !todo.id) {
+    if (!todo.id || todo.id < 0) {
       todo.id = ++this.lastId;
     }
     this.todos.push(todo);
@@ -36,7 +37,7 @@ export class TodoService {
   }
 
   public updateTodoById(id: number, values: Object = {}): Todo {
-    let todo = this.getTodo(id);
+    const todo = this.getTodo(id);
     if (!todo) {
       return null;
     }
@@ -51,5 +52,13 @@ export class TodoService {
       }
     });
     return false;
+  }
+
+  completeTodo(id: number) {
+    console.log(this.todos);
+    const todo = this.getTodo(id);
+    if (todo) {
+      todo.complete = !todo.complete;
+    }
   }
 }

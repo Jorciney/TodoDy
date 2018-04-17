@@ -1,3 +1,5 @@
-<h4>
-  todo-list works!
-</h4>
+<div class="todo-list-container">
+  <input class="complete-todo" type="checkbox" (click)="completeTodo()">
+  <label [ngClass]="{'todo-title':true, 'todo-complete':todo.complete}">{{todo.title}}</label>
+  <button class="delete-todo" type="button" (click)="deleteTodo()">delete</button>
+</div>

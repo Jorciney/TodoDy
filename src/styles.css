@@ -15,6 +15,15 @@
   src: url("./assets/fonts/bariol_regular_italic-webfont.woff");
 }
 
+@font-face {
+  font-family: 'Montserrat-Italic';
+  src: url("./assets/fonts/Montserrat-Italic.ttf");
+}
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url("./assets/fonts/Montserrat-Regular.ttf");
+}
 html {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
