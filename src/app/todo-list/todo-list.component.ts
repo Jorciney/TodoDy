@@ -10,6 +10,8 @@ import {TodoService} from '../service/todo.service';
 export class TodoListComponent implements OnInit {
   @Input()
   todo: Todo;
+  @Input()
+  isHovered = false;
 
   constructor(private todoService: TodoService) {
   }

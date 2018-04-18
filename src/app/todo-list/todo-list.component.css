@@ -1,13 +1,65 @@
-.todo-title{
-  color:#334431;
+.todo-title {
+  color: #334431;
   font-family: Montserrat-Regular;
 }
-.todo-list-container{
+
+.todo-list-container {
+  display: inline-table;
   width: 100%;
-  line-height: 1.7em;
+  line-height: 2.2em;
   background-color: #f2cbbc;
   border: 1px solid #e6af4b;
+  margin: 0 auto;
 }
-.todo-complete{
+
+.todo-complete {
   text-decoration: line-through;
+}
+
+.delete-todo {
+  height: 17px;
+  vertical-align: text-bottom;
+}
+
+.bin-container {
+  float: right;
+  margin: 0 10px;
+}
+.big-checkbox {
+  vertical-align: sub;
+  padding: 18px;
+  outline: none;
+}
+
+.big-checkbox:checked:after {
+  font-size: 28px;
+  left: 6px;
+}
+.regular-checkbox {
+  -webkit-appearance: none;
+  background-color: #fafafa;
+  /*border: 1px solid #cacece;*/
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+  padding: 9px;
+  /*border-radius: 3px;*/
+  display: inline-block;
+  position: relative;
+}
+.regular-checkbox:active, .regular-checkbox:checked:active {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked {
+  background-color: #e9ecee;
+  border: 1px solid #adb8c0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+  color: #99a1a7;
+}
+.regular-checkbox:checked:after {
+  content: '\2714';
+  font-size: 14px;
+  position: absolute;
+  top: 0px;
+  left: 3px;
+  color: #99a1a7;
 }

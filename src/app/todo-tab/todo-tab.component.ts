@@ -35,4 +35,11 @@ export class TodoTabComponent implements OnInit {
     return this.todoService.getAllTodos();
   }
 
+  public mouseOver(t: Todo) {
+    t.isHovered = true;
+  }
+
+  public mouseLeave(t: Todo) {
+    t.isHovered = false;
+  }
 }

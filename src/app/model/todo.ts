@@ -4,6 +4,7 @@ export class Todo {
   complete = false;
   children: Todo[];
   action: string;
+  isHovered =  false;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

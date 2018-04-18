@@ -7,7 +7,9 @@
   <div>
     <ul>
       <li *ngFor="let t of todos" class="todo-list">
-        <app-todo-list [todo]="t"></app-todo-list>
+        <div (mouseover)="mouseOver(t)" (mouseleave)="mouseLeave(t)">
+          <app-todo-list [todo]="t" [isHovered]="t.isHovered"></app-todo-list>
+        </div>
       </li>
     </ul>
   </div>
