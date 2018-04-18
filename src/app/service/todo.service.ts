@@ -5,7 +5,24 @@ import {Todo} from '../model/todo';
 export class TodoService {
   lastId: number;
 
-  todos = new Array<Todo>();
+  todos = [
+    {
+      id: 1,
+      complete: false,
+      title: 'First Todo'
+    } as Todo,
+    {
+      id: 2,
+      complete: false,
+      title: 'Second main Todo'
+    } as Todo,
+    {
+      id: 3,
+      complete: false,
+      title: 'Third main Todo',
+      children: [{id: 55, complete: false, title: 'Child of the Third Todo'} as Todo]
+    } as Todo
+  ];
 
   constructor() {
     this.lastId = 0;
