@@ -10,6 +10,7 @@ import {TodoService} from '../../service/todo.service';
 })
 export class TodoTabComponent implements OnInit {
   todo = new Todo();
+  private parentId: number;
 
   constructor(private todoService: TodoService) {
   }
@@ -18,8 +19,15 @@ export class TodoTabComponent implements OnInit {
   }
 
   public addTodo() {
+    if (this.parentId) {
+      this.todo.parentId = this.parentId;
+    }
     this.todoService.addTodo(this.todo);
     this.todo = new Todo();
+  }
+
+  public setParentId(event) {
+    this.parentId = event.target.value;
   }
 
   public toggleTodo(todo) {

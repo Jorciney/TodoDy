@@ -9,12 +9,14 @@ export class TodoService {
     {
       id: 101,
       complete: false,
-      title: 'First Todo'
+      title: 'First Todo',
+      children: []
     } as Todo,
     {
       id: 102,
       complete: false,
-      title: 'Second main Todo'
+      title: 'Second main Todo',
+      children: []
     } as Todo,
     {
       id: 103,
@@ -31,7 +33,20 @@ export class TodoService {
     if (!todo.id || todo.id < 0) {
       todo.id = ++this.lastId;
     }
-    this.todos.push(todo);
+    if (todo.parentId.toString() !== 'undefined') {
+      this.addChild(todo);
+    } else {
+      this.todos.push(todo);
+    }
+  }
+
+  private addChild(todo: Todo) {
+    this.todos.forEach(
+      (t: Todo) => {
+        if (todo.parentId.toString() === t.id.toString()) {
+          t.children.push(todo);
+        }
+      });
   }
 
   public deleteTodo(id: number): boolean {

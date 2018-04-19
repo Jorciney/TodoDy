@@ -2,15 +2,16 @@ export class Todo {
   id = -1;
   title: string;
   complete = false;
-  children: Todo[];
+  children = [];
   action: string;
-  isHovered =  false;
+  isHovered = false;
+  parentId?: number;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
   }
 
-  public addChildren(child: Todo) {
-    this.children.push();
+  public addChild(child: Todo) {
+    this.children.push(child);
   }
 }
