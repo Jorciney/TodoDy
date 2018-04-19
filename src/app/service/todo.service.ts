@@ -3,29 +3,28 @@ import {Todo} from '../model/todo';
 
 @Injectable()
 export class TodoService {
-  lastId: number;
+  lastId = 0;
 
   todos = [
     {
-      id: 1,
+      id: 101,
       complete: false,
       title: 'First Todo'
     } as Todo,
     {
-      id: 2,
+      id: 102,
       complete: false,
       title: 'Second main Todo'
     } as Todo,
     {
-      id: 3,
+      id: 103,
       complete: false,
       title: 'Third main Todo',
-      children: [{id: 55, complete: false, title: 'Child of the Third Todo'} as Todo]
+      children: [{id: 200, complete: false, title: 'Child of the Third Todo'} as Todo]
     } as Todo
   ];
 
   constructor() {
-    this.lastId = 0;
   }
 
   public addTodo(todo: Todo) {

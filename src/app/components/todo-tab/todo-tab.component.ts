@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Todo} from '../model/todo';
-import {TodoService} from '../service/todo.service';
+import {Todo} from '../../model/todo';
+import {TodoService} from '../../service/todo.service';
 
 @Component({
   selector: 'app-todo-tab',

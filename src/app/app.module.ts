@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { TodoTabComponent } from './todo-tab/todo-tab.component';
-import { GraphComponent } from './graph/graph.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
-import { HeaderComponent } from './header/header.component';
+import { TodoTabComponent } from './components/todo-tab/todo-tab.component';
+import { GraphComponent } from './components/graph/graph.component';
+import { TodoComponent } from './components/todo/todo.component';
+import { HeaderComponent } from './components/header/header.component';
 import {FormsModule} from '@angular/forms';
 
 
@@ -15,7 +15,7 @@ import {FormsModule} from '@angular/forms';
     AppComponent,
     TodoTabComponent,
     GraphComponent,
-    TodoListComponent,
+    TodoComponent,
     HeaderComponent
   ],
   imports: [

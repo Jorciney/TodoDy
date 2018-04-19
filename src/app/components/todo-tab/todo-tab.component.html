@@ -1,5 +1,4 @@
 <div class="todo-body">
-  <div>Enter a todo</div>
   <div class="shadow">
     <input type="text" class="todo-input-field" placeholder="Enter a todo" autofocus="" [(ngModel)]="todo.title"
            (keyup.enter)="addTodo()">
@@ -8,7 +7,7 @@
     <ul>
       <li *ngFor="let t of todos" class="todo-list">
         <div (mouseover)="mouseOver(t)" (mouseleave)="mouseLeave(t)">
-          <app-todo-list [todo]="t" [isHovered]="t.isHovered"></app-todo-list>
+          <app-todo [todo]="t" [isHovered]="t.isHovered"></app-todo>
         </div>
       </li>
     </ul>

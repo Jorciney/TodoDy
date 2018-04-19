@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Todo} from '../model/todo';
-import {TodoService} from '../service/todo.service';
+import {Todo} from '../../model/todo';
+import {TodoService} from '../../service/todo.service';
 
 @Component({
-  selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
 })
-export class TodoListComponent implements OnInit {
+export class TodoComponent implements OnInit {
   @Input()
   todo: Todo;
   @Input()
