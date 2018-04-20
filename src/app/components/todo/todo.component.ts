@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Todo} from '../../model/todo';
 import {TodoService} from '../../service/todo.service';
 
@@ -8,10 +8,13 @@ import {TodoService} from '../../service/todo.service';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
+
   @Input()
   todo: Todo;
   @Input()
   isHovered = false;
+  @ViewChild('checkbox')
+  private checkbox;
 
   constructor(private todoService: TodoService) {
   }

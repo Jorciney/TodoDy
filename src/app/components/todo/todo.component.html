@@ -1,5 +1,6 @@
 <div class="todo-list-container">
-  <input class="complete-todo  regular-checkbox big-checkbox" type="checkbox" (click)="completeTodo()">
+  <input #checkbox class="complete-todo  regular-checkbox big-checkbox" type="checkbox" [checked]="todo.complete"
+         (click)="completeTodo()">
   <label [ngClass]="{'todo-title':true, 'todo-complete':todo.complete}">{{todo.title}}</label>
   <div *ngIf="isHovered" class="bin-container">
     <input class="delete-todo" type="image" src="../../../assets/images/delete-button.svg" (click)="deleteTodo()">

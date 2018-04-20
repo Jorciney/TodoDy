@@ -33,7 +33,7 @@ export class TodoService {
     if (!todo.id || todo.id < 0) {
       todo.id = ++this.lastId;
     }
-    if (todo.parentId.toString() !== 'undefined') {
+    if (todo.parentId && todo.parentId.toString() !== 'undefined') {
       this.addChild(todo);
     } else {
       this.todos.push(todo);
@@ -86,10 +86,10 @@ export class TodoService {
   }
 
   completeTodo(id: number) {
-    console.log(this.todos);
     const todo = this.getTodo(id);
     if (todo) {
       todo.complete = !todo.complete;
+      todo.children.forEach(child => child.complete = !child.complete);
     }
   }
 }
