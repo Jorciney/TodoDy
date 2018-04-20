@@ -60,7 +60,20 @@ export class TodoService {
   }
 
   public getTodo(id: number): Todo {
-    return this.todos.filter(todo => todo.id === id).pop();
+    let result = null;
+    this.todos.forEach(todo => {
+      if (todo.id === id) {
+        result = todo;
+      }
+      todo.children.forEach(
+        child => {
+          if (child.id === id) {
+            result = child;
+          }
+        }
+      );
+    });
+    return result;
   }
 
   public getAllTodos(): Todo[] {
@@ -89,7 +102,7 @@ export class TodoService {
     const todo = this.getTodo(id);
     if (todo) {
       todo.complete = !todo.complete;
-      todo.children.forEach(child => child.complete = !child.complete);
+      todo.children.forEach(child => child.complete = todo.complete);
     }
   }
 }
