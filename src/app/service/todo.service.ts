@@ -22,7 +22,12 @@ export class TodoService {
       id: 103,
       complete: false,
       title: 'Third main Todo',
-      children: [{id: 200, complete: false, title: 'Child of the Third Todo'} as Todo]
+      children: [{
+        id: 200,
+        complete: false,
+        title: 'Child of the Third Todo',
+        children: [{id: 201, complete: false, title: 'GrandChild of the Third Todo'} as Todo]
+      } as Todo]
     } as Todo
   ];
 
@@ -65,13 +70,14 @@ export class TodoService {
       if (todo.id === id) {
         result = todo;
       }
-      todo.children.forEach(
-        child => {
-          if (child.id === id) {
-            result = child;
+      if (todo.children) {
+        todo.children.forEach(child => {
+            if (child.id === id) {
+              result = child;
+            }
           }
-        }
-      );
+        );
+      }
     });
     return result;
   }
@@ -102,7 +108,10 @@ export class TodoService {
     const todo = this.getTodo(id);
     if (todo) {
       todo.complete = !todo.complete;
-      todo.children.forEach(child => child.complete = todo.complete);
+      if (todo.children) {
+        todo.children
+          .forEach(child => child.complete = todo.complete);
+      }
     }
   }
 }
