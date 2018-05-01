@@ -4,6 +4,7 @@ import {Todo} from '../model/todo';
 @Injectable()
 export class TodoService {
   lastId = 0;
+  allTodos: Array<Todo> = [];
 
   todos = [
     {
@@ -46,9 +47,12 @@ export class TodoService {
   }
 
   private addChild(todo: Todo) {
-    this.todos.forEach(
+    this.allTodos.forEach(
       (t: Todo) => {
         if (todo.parentId.toString() === t.id.toString()) {
+          if (!t.children) {
+            t.children = [];
+          }
           t.children.push(todo);
         }
       });
@@ -66,7 +70,7 @@ export class TodoService {
 
   public getTodo(id: number): Todo {
     let result = null;
-    this.todos.forEach(todo => {
+    this.allTodos.forEach(todo => {
       if (todo.id === id) {
         result = todo;
       }
@@ -82,9 +86,16 @@ export class TodoService {
     return result;
   }
 
-  public getAllTodos(): Todo[] {
+  public getAllTodosFlat(): Todo[] {
+    this.allTodos = [];
+    this.fetchAllTodos(this.todos);
+    return this.allTodos;
+  }
+
+  public getMainTodosHierarchy(): Todo[] {
     return this.todos;
   }
+
 
   public updateTodoById(id: number, values: Object = {}): Todo {
     const todo = this.getTodo(id);
@@ -110,8 +121,18 @@ export class TodoService {
       todo.complete = !todo.complete;
       if (todo.children) {
         todo.children
-          .forEach(child => child.complete = todo.complete);
+          .forEach(child => this.completeTodo(child.id));
       }
     }
+  }
+
+  private fetchAllTodos(todos: Todo[]) {
+    todos.forEach(todo => {
+        this.allTodos.push(todo);
+        if (todo.children) {
+          this.fetchAllTodos(todo.children);
+        }
+      }
+    );
   }
 }

@@ -39,9 +39,13 @@ export class TodoViewComponent implements OnInit {
     this.todoService.deleteTodo(todo.id);
   }
 
-  public get todos() {
-    return this.todoService.getAllTodos();
+  public get allTodosFlat() {
+    return this.todoService.getAllTodosFlat();
   }
+  public get allTodosHierarchy() {
+    return this.todoService.getMainTodosHierarchy();
+  }
+
 
   public mouseOver(t: Todo) {
     t.isHovered = true;
