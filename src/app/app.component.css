@@ -5,3 +5,10 @@
   width: 35vw;
   height: 100vh;
 }
+
+.row{
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0;
+  width: 50%;
+}

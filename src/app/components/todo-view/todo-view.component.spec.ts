@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GraphComponent } from './graph.component';
+import { TodoViewComponent } from './todo-view.component';
 
-describe('GraphComponent', () => {
-  let component: GraphComponent;
-  let fixture: ComponentFixture<GraphComponent>;
+describe('TodoViewComponent', () => {
+  let component: TodoViewComponent;
+  let fixture: ComponentFixture<TodoViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraphComponent ]
+      declarations: [ TodoViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GraphComponent);
+    fixture = TestBed.createComponent(TodoViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

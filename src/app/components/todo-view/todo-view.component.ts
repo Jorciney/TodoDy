@@ -3,12 +3,12 @@ import {Todo} from '../../model/todo';
 import {TodoService} from '../../service/todo.service';
 
 @Component({
-  selector: 'app-todo-tab',
-  templateUrl: './todo-tab.component.html',
-  styleUrls: ['./todo-tab.component.css'],
+  selector: 'app-todo-view',
+  templateUrl: './todo-view.component.html',
+  styleUrls: ['./todo-view.component.css'],
   providers: [TodoService]
 })
-export class TodoTabComponent implements OnInit {
+export class TodoViewComponent implements OnInit {
   todo = new Todo();
   private parentId: number;
 
