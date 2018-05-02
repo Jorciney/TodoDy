@@ -7,6 +7,9 @@ import { TodoComponent } from './components/todo/todo.component';
 import { HeaderComponent } from './components/header/header.component';
 import {FormsModule} from '@angular/forms';
 import {TodoViewComponent} from './components/todo-view/todo-view.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
 @NgModule({
@@ -18,7 +21,16 @@ import {TodoViewComponent} from './components/todo-view/todo-view.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp({
+      apiKey: 'AIzaSyBhNRdf-ZUtbpzfI5UaykRNqMgbodGBZBY',
+      authDomain: '',
+      databaseURL: 'https://jdc-todody.firebaseio.com/',
+      storageBucket: '',
+      messagingSenderId: ''
+    }),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,9 +2,9 @@ export class Todo {
   id = -1;
   title: string;
   complete = false;
-  children = [];
-  action: string;
-  isHovered = false;
+  children ? = [];
+  action?: string;
+  isHovered ? = false;
   parentId?: number;
 
   constructor(values: Object = {}) {
