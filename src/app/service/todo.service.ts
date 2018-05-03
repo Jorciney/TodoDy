@@ -1,18 +1,26 @@
 import {Injectable} from '@angular/core';
 import {Todo} from '../model/todo';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class TodoService {
-  lastId = 0;
   allTodos: Array<Todo> = [];
+  allFlatTodos = [];
+  todosKeyValues = [];
   todosAsObservable: Observable<Todo[]>;
   firebaseList: AngularFireList<any>;
   todos: Array<Todo> = [];
 
   constructor(public databaseFB: AngularFireDatabase) {
+    databaseFB.list('/').snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.val();
+        const id = a.payload.key;
+        this.todosKeyValues[id] = data;
+        return {id, ...data};
+      });
+    }).subscribe(values => console.log(this.todosKeyValues));
     this.firebaseList = databaseFB.list('/');
     this.todosAsObservable = this.firebaseList.valueChanges();
     this.todosAsObservable
@@ -20,40 +28,26 @@ export class TodoService {
   }
 
   public addTodo(todo: Todo) {
+    console.log(this.firebaseList.snapshotChanges());
     if (!todo.id || todo.id < 0) {
       todo.id = this.generateId();
     }
-    if (todo.parentId && todo.parentId.toString() !== 'undefined') {
-      this.addChild(todo);
-    } else {
-      this.firebaseList.push(todo);
-    }
+    this.firebaseList.push(todo);
   }
 
   private generateId() {
     return Math.max(...this.todos.map(t => t.id)) + 1;
   }
 
-  private addChild(todo: Todo) {
-    this.allTodos.forEach(
-      (t: Todo) => {
-        if (todo.parentId.toString() === t.id.toString()) {
-          if (!t.children) {
-            t.children = [];
-          }
-          t.children.push(todo);
-        }
-      });
-  }
 
-  public deleteTodo(id: number): boolean {
-    this.todos.forEach((todo, index) => {
-      if (todo.id === id) {
-        this.todos.splice(index, 1);
-        return true;
-      }
-    });
-    return false;
+  public deleteTodo(id: number): void {
+    this.firebaseList.snapshotChanges().subscribe(
+      value => value.forEach(todo => {
+        if (todo.payload.val().id === id) {
+          this.databaseFB.object('/' + todo.payload.key).remove();
+        }
+      })
+    );
   }
 
   public getTodo(id: number): Todo {

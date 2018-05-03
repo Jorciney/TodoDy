@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Todo} from '../../model/todo';
 import {TodoService} from '../../service/todo.service';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-import {FirebaseListObservable} from 'angularfire2/database-deprecated';
+import {AngularFireList} from 'angularfire2/database';
 import * as firebase from 'firebase';
 import {Observable} from 'rxjs/Observable';
 
@@ -18,7 +17,7 @@ export class TodoViewComponent implements OnInit {
   user: Observable<firebase.User>;
   list: AngularFireList<any>;
 
-  private parentId: number;
+  private parentId: any;
 
   constructor(private todoService: TodoService, private authenticatorFB: AngularFireAuth) {
   }
