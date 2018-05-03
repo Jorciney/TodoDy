@@ -98,14 +98,19 @@ export class TodoService {
   }
 
   completeTodo(id: number) {
-    const todo = this.getTodo(id);
-    if (todo) {
-      todo.complete = !todo.complete;
-      if (todo.children) {
-        todo.children
-          .forEach(child => this.completeTodo(child.id));
-      }
-    }
+    this.firebaseList.snapshotChanges().subscribe(
+      value => value.forEach(snapshot => {
+        const todo = snapshot.payload.val();
+        if (todo.id === id) {
+          todo.complete = !todo.complete;
+          this.updateTodo(snapshot, todo);
+        }
+      })
+    );
+  }
+
+  private updateTodo(snapshot, todo: any) {
+    this.databaseFB.object('/' + snapshot.payload.key).update(todo);
   }
 
   private fetchAllTodos(todos: Todo[]) {
