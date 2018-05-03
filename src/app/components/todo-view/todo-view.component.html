@@ -9,14 +9,14 @@
     Child from:
     <select (change)="setParentId($event)">
       <option [value]="undefined" selected>Select</option>
-      <option *ngFor="let todo of todos | async" [value]="todo.id">
-        {{todo.title}}
+      <option *ngFor="let todo of allTodosFlat" [value]="todo.id">
+        {{todo.id + ': ' + todo.title}}
       </option>
     </select>
   </div>
   <div>
     <ul>
-      <li *ngFor="let todo of allTodosHierarchy | async" class="todo-list">
+      <li *ngFor="let todo of allTodosHierarchy" class="todo-list">
         <div (mouseover)="mouseOver(todo)" (mouseleave)="mouseLeave(todo)">
           <app-todo [todo]="todo" [isHovered]="todo.isHovered"></app-todo>
         </div>

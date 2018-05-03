@@ -1,49 +1,37 @@
 import {Injectable} from '@angular/core';
 import {Todo} from '../model/todo';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class TodoService {
   lastId = 0;
   allTodos: Array<Todo> = [];
+  todosAsObservable: Observable<Todo[]>;
+  firebaseList: AngularFireList<any>;
+  todos: Array<Todo> = [];
 
-  todos = [
-    {
-      id: 101,
-      complete: false,
-      title: 'First Todo',
-      children: []
-    } as Todo,
-    {
-      id: 102,
-      complete: false,
-      title: 'Second main Todo',
-      children: []
-    } as Todo,
-    {
-      id: 103,
-      complete: false,
-      title: 'Third main Todo',
-      children: [{
-        id: 200,
-        complete: false,
-        title: 'Child of the Third Todo',
-        children: [{id: 201, complete: false, title: 'GrandChild of the Third Todo'} as Todo]
-      } as Todo]
-    } as Todo
-  ];
-
-  constructor() {
+  constructor(public databaseFB: AngularFireDatabase) {
+    this.firebaseList = databaseFB.list('/');
+    this.todosAsObservable = this.firebaseList.valueChanges();
+    this.todosAsObservable
+      .subscribe(values => this.todos = values);
   }
 
   public addTodo(todo: Todo) {
     if (!todo.id || todo.id < 0) {
-      todo.id = ++this.lastId;
+      todo.id = this.generateId();
     }
     if (todo.parentId && todo.parentId.toString() !== 'undefined') {
       this.addChild(todo);
     } else {
-      this.todos.push(todo);
+      this.firebaseList.push(todo);
     }
+  }
+
+  private generateId() {
+    return Math.max(...this.todos.map(t => t.id)) + 1;
   }
 
   private addChild(todo: Todo) {

@@ -16,20 +16,11 @@ import {Observable} from 'rxjs/Observable';
 export class TodoViewComponent implements OnInit {
   todo = new Todo();
   user: Observable<firebase.User>;
-  todos: Observable<any[]>;
   list: AngularFireList<any>;
 
   private parentId: number;
 
-  constructor(private todoService: TodoService, private authenticatorFB: AngularFireAuth, public databaseFB: AngularFireDatabase) {
-      this.list = databaseFB.list('/', ref => {
-      const q = ref.limitToLast(50);
-      return q;
-    });
-    this.todos = this.list.valueChanges();
-    this.todos.subscribe( value => {
-      console.log('value', value);
-    });
+  constructor(private todoService: TodoService, private authenticatorFB: AngularFireAuth) {
   }
 
   ngOnInit() {
@@ -50,12 +41,6 @@ export class TodoViewComponent implements OnInit {
     if (this.parentId) {
       this.todo.parentId = this.parentId;
     }
-    this.list.push({
-      id: this.todo.id,
-      title: this.todo.title,
-      complete: this.todo.complete
-    } as Todo);
-
     this.todoService.addTodo(this.todo);
     this.todo = new Todo();
   }
@@ -74,12 +59,11 @@ export class TodoViewComponent implements OnInit {
   }
 
   public get allTodosFlat() {
-    return this.todos;
-    // return this.todoService.getAllTodosFlat();
+    return this.todoService.getAllTodosFlat();
   }
 
   public get allTodosHierarchy() {
-    return this.todos;
+    return this.todoService.getMainTodosHierarchy();
   }
 
 
