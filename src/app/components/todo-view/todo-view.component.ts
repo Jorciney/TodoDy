@@ -33,7 +33,7 @@ export class TodoViewComponent implements OnInit {
     this.authenticatorFB.auth.signOut();
   }
 
-  Send(desc: string) {
+  send(desc: string) {
   }
 
   public addTodo() {

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Todo} from '../model/todo';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {Observable} from 'rxjs/Observable';
+import {FirebaseService} from './firebase.service';
 
 @Injectable()
 export class TodoService {
@@ -11,8 +12,9 @@ export class TodoService {
   todosAsObservable: Observable<Todo[]>;
   firebaseList: AngularFireList<any>;
   todos: Array<Todo> = [];
+  todosWithHierarchy: Array<Todo> = [];
 
-  constructor(public databaseFB: AngularFireDatabase) {
+  constructor(public databaseFB: AngularFireDatabase,  private firebaseService: FirebaseService) {
     databaseFB.list('/').snapshotChanges().map(actions => {
       return actions.map(a => {
         const data = a.payload.val();
@@ -28,11 +30,7 @@ export class TodoService {
   }
 
   public addTodo(todo: Todo) {
-    console.log(this.firebaseList.snapshotChanges());
-    if (!todo.id || todo.id < 0) {
-      todo.id = this.generateId();
-    }
-    this.firebaseList.push(todo);
+   this.firebaseService.addTodo(todo);
   }
 
   private generateId() {
@@ -41,13 +39,7 @@ export class TodoService {
 
 
   public deleteTodo(id: number): void {
-    this.firebaseList.snapshotChanges().subscribe(
-      value => value.forEach(todo => {
-        if (todo.payload.val().id === id) {
-          this.databaseFB.object('/' + todo.payload.key).remove();
-        }
-      })
-    );
+    this.firebaseService.deleteTodo(id);
   }
 
   public getTodo(id: number): Todo {
@@ -97,20 +89,8 @@ export class TodoService {
     return false;
   }
 
-  completeTodo(id: number) {
-    this.firebaseList.snapshotChanges().subscribe(
-      value => value.forEach(snapshot => {
-        const todo = snapshot.payload.val();
-        if (todo.id === id) {
-          todo.complete = !todo.complete;
-          this.updateTodo(snapshot, todo);
-        }
-      })
-    );
-  }
-
-  private updateTodo(snapshot, todo: any) {
-    this.databaseFB.object('/' + snapshot.payload.key).update(todo);
+  public completeTodo(id: number) {
+    this.firebaseService.completeTodo(id);
   }
 
   private fetchAllTodos(todos: Todo[]) {
