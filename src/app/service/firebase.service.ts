@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
-import {AngularFireDatabase} from 'angularfire2/database';
-import {map, mergeMap} from 'rxjs/operators';
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import {map} from 'rxjs/operators';
 import {Todo} from '../model/todo';
 import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable()
 export class FirebaseService {
-  todosKeyValues: Observable<any>;
+  todosKeyValues: Map<string, Todo> = new Map();
   allTodos: Observable<Array<any>>;
+  private firebaseList: AngularFireList<any>;
 
   constructor(private databaseFB: AngularFireDatabase) {
     this.fetchKeyValues();
+    this.firebaseList = this.databaseFB.list('/');
   }
 
   public getAllTodosFromDB(): Observable<Array<any>> {
@@ -18,10 +20,6 @@ export class FirebaseService {
       return this.allTodos;
     }
     return this.allTodos = this.databaseFB.list('/').valueChanges();
-  }
-
-  public getTodo(id: number): Observable<Todo> {
-    return this.getAllTodosFromDB().pipe(mergeMap(tdos => tdos.filter(todo => todo.id === id).pop()));
   }
 
   public addTodo(todo: Todo): void {
@@ -42,26 +40,32 @@ export class FirebaseService {
   }
 
   public completeTodo(id: number) {
-    this.databaseFB.list('/').snapshotChanges().subscribe(
-      value => value.forEach(todo => {
-        if (todo.payload.val().id === id) {
-          const updatedTodo = todo.payload.val();
-          updatedTodo.complete = !updatedTodo.complete;
-          this.databaseFB.object('/' + todo.payload.key).update(updatedTodo);
-        }
-      })
-    );
+    const foundTodo = this.getTodo(id);
+    if (foundTodo) {
+      const updatedTodo = foundTodo;
+      updatedTodo.complete = !updatedTodo.complete;
+      this.databaseFB.object('/' + this.getKey(id)).update(updatedTodo);
+    }
+  }
+
+  getKey(id: number): string {
+    const foundEntry = Array.from(this.todosKeyValues.entries()).filter(entry => entry[1].id === id).pop();
+    return foundEntry ? foundEntry[0] : undefined;
+  }
+
+  getTodo(id: number): Todo {
+    const foundEntry = Array.from(this.todosKeyValues.entries()).filter(entry => entry[1].id === id).pop();
+    return foundEntry ? foundEntry[1] : undefined;
   }
 
   private fetchKeyValues() {
-    this.todosKeyValues = this.databaseFB.list('/').snapshotChanges()
-      .pipe(
-        map((actions: Observable<any>) => actions.pipe(map(action => {
-          const value = action.payload.value();
-          const id = action.payload.key;
-          return {id, ...value};
-        })))
-      );
+    this.databaseFB.list('/').snapshotChanges().subscribe(actions => {
+      actions.forEach(action => {
+        const value = action.payload.val();
+        const id = action.payload.key;
+        this.todosKeyValues.set(id, value);
+      });
+    });
   }
 
   private generateId() {
@@ -70,9 +74,5 @@ export class FirebaseService {
       map(tdos => id = Math.max(...tdos.map(t => t.id)) + 1)
     );
     return id;
-  }
-
-  private updateTodo(snapshot, todo: any): void {
-    this.databaseFB.object('/' + snapshot.payload.key).update(todo);
   }
 }

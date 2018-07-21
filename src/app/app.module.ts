@@ -36,4 +36,5 @@ import {FirebaseService} from './service/firebase.service';
   providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

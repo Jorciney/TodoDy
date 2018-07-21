@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Todo} from '../../model/todo';
-import {TodoService} from '../../service/todo.service';
+import {FirebaseService} from '../../service/firebase.service';
 
 @Component({
   selector: 'app-todo',
@@ -16,17 +16,17 @@ export class TodoComponent implements OnInit {
   @ViewChild('checkbox')
   private checkbox;
 
-  constructor(private todoService: TodoService) {
+  constructor(private firebaseService: FirebaseService) {
   }
 
   ngOnInit() {
   }
 
   public deleteTodo() {
-    this.todoService.deleteTodo(this.todo.id);
+    this.firebaseService.deleteTodo(this.todo.id);
   }
 
   public completeTodo() {
-    this.todoService.completeTodo(this.todo.id);
+    this.firebaseService.completeTodo(this.todo.id);
   }
 }

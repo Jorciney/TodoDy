@@ -1,18 +1,17 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from '../../model/todo';
-import {TodoService} from '../../service/todo.service';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFireList} from 'angularfire2/database';
 import * as firebase from 'firebase';
 import {Observable} from 'rxjs/internal/Observable';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
+import {FirebaseService} from '../../service/firebase.service';
 
 @Component({
   selector: 'app-todo-view',
   templateUrl: './todo-view.component.html',
   styleUrls: ['./todo-view.component.css'],
-  providers: [TodoService]
 })
 export class TodoViewComponent implements OnInit, OnDestroy {
   todo = new Todo();
@@ -22,7 +21,7 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   stopSubscription: Subject<boolean> = new Subject<boolean>();
   private parentId: any;
 
-  constructor(private todoService: TodoService, private authenticatorFB: AngularFireAuth) {
+  constructor(private authenticatorFB: AngularFireAuth, private firebaseService: FirebaseService) {
   }
 
   ngOnInit() {
@@ -44,16 +43,8 @@ export class TodoViewComponent implements OnInit, OnDestroy {
     if (this.parentId) {
       this.todo.parentId = this.parentId;
     }
-    this.todoService.addTodo(this.todo);
+    this.firebaseService.addTodo(this.todo);
     this.todo = new Todo();
-  }
-
-  public removeTodo(todo: Todo) {
-    this.todoService.deleteTodo(todo.id);
-  }
-
-  public get allTodosFlat() {
-    return this.todoService.getAllTodosFlat();
   }
 
   public mouseOver(t: Todo) {
@@ -69,7 +60,7 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   }
 
   private fetchTodos() {
-    this.todoService.getAllTodos()
+    this.firebaseService.getAllTodosFromDB()
       .pipe(takeUntil(this.stopSubscription)).subscribe(todos => {
         this.allTodos = todos;
       }
