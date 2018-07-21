@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from '../../model/todo';
 import {TodoService} from '../../service/todo.service';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFireList} from 'angularfire2/database';
 import * as firebase from 'firebase';
 import {Observable} from 'rxjs/internal/Observable';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-todo-view',
@@ -12,17 +14,19 @@ import {Observable} from 'rxjs/internal/Observable';
   styleUrls: ['./todo-view.component.css'],
   providers: [TodoService]
 })
-export class TodoViewComponent implements OnInit {
+export class TodoViewComponent implements OnInit, OnDestroy {
   todo = new Todo();
   user: Observable<firebase.User>;
   list: AngularFireList<any>;
-
+  allTodos: Array<Todo> = [];
+  stopSubscription: Subject<boolean> = new Subject<boolean>();
   private parentId: any;
 
   constructor(private todoService: TodoService, private authenticatorFB: AngularFireAuth) {
   }
 
   ngOnInit() {
+    this.fetchTodos();
   }
 
   login() {
@@ -44,15 +48,6 @@ export class TodoViewComponent implements OnInit {
     this.todo = new Todo();
   }
 
-  public setParentId(event) {
-    this.parentId = event.target.value;
-  }
-
-  public toggleTodo(todo) {
-    // TODO create toggle Todo on the service
-    // this.todoService
-  }
-
   public removeTodo(todo: Todo) {
     this.todoService.deleteTodo(todo.id);
   }
@@ -61,11 +56,6 @@ export class TodoViewComponent implements OnInit {
     return this.todoService.getAllTodosFlat();
   }
 
-  public get allTodosHierarchy() {
-    return this.todoService.getMainTodosHierarchy();
-  }
-
-
   public mouseOver(t: Todo) {
     t.isHovered = true;
   }
@@ -73,4 +63,17 @@ export class TodoViewComponent implements OnInit {
   public mouseLeave(t: Todo) {
     t.isHovered = false;
   }
+
+  ngOnDestroy(): void {
+    this.stopSubscription.next(true);
+  }
+
+  private fetchTodos() {
+    this.todoService.getAllTodos()
+      .pipe(takeUntil(this.stopSubscription)).subscribe(todos => {
+        this.allTodos = todos;
+      }
+    );
+  }
+
 }

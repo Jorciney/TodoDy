@@ -43,11 +43,11 @@ export class FirebaseService {
 
   public completeTodo(id: number) {
     this.databaseFB.list('/').snapshotChanges().subscribe(
-      value => value.forEach(snapshot => {
-        const todo = snapshot.payload.val();
-        if (todo.id === id) {
-          todo.complete = !todo.complete;
-          this.updateTodo(snapshot, todo);
+      value => value.forEach(todo => {
+        if (todo.payload.val().id === id) {
+          const updatedTodo = todo.payload.val();
+          updatedTodo.complete = !updatedTodo.complete;
+          this.databaseFB.object('/' + todo.payload.key).update(updatedTodo);
         }
       })
     );

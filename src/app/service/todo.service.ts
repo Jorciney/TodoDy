@@ -66,8 +66,8 @@ export class TodoService {
     return this.allTodos;
   }
 
-  public getMainTodosHierarchy(): Todo[] {
-    return this.todos;
+  public getAllTodos(): Observable<Array<Todo>> {
+    return this.firebaseService.getAllTodosFromDB();
   }
 
 
