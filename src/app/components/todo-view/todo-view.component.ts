@@ -4,7 +4,7 @@ import {TodoService} from '../../service/todo.service';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFireList} from 'angularfire2/database';
 import * as firebase from 'firebase';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-todo-view',

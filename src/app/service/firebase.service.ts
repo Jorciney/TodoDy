@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {map, mergeMap} from 'rxjs/operators';
-import {Observable} from 'rxjs/Observable';
 import {Todo} from '../model/todo';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable()
 export class FirebaseService {
@@ -56,11 +56,11 @@ export class FirebaseService {
   private fetchKeyValues() {
     this.todosKeyValues = this.databaseFB.list('/').snapshotChanges()
       .pipe(
-        map(actions => actions.map(action => {
+        map((actions: Observable<any>) => actions.pipe(map(action => {
           const value = action.payload.value();
           const id = action.payload.key;
           return {id, ...value};
-        }))
+        })))
       );
   }
 
