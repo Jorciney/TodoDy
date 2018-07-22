@@ -10,8 +10,12 @@ import {TodoViewComponent} from './components/todo-view/todo-view.component';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
-import {FirebaseService} from './service/firebase.service';
+import {FirebaseService} from './services/firebase.service';
+import {RouterModule, Routes} from '@angular/router';
 
+const routes: Routes = [
+  {path: '**', component: AppComponent}
+];
 
 @NgModule({
   declarations: [
@@ -21,11 +25,12 @@ import {FirebaseService} from './service/firebase.service';
     HeaderComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     FormsModule,
     AngularFireModule.initializeApp({
       apiKey: 'AIzaSyBhNRdf-ZUtbpzfI5UaykRNqMgbodGBZBY',
-      authDomain: '',
+      authDomain: 'project-258941864321.firebaseapp.com',
       databaseURL: 'https://jdc-todody.firebaseio.com/',
       storageBucket: '',
       messagingSenderId: ''

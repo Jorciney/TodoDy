@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Todo} from '../../model/todo';
-import {FirebaseService} from '../../service/firebase.service';
+import {FirebaseService} from '../../services/firebase.service';
 
 @Component({
   selector: 'app-todo',

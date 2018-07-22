@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from '../../model/todo';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFireList} from 'angularfire2/database';
 import * as firebase from 'firebase';
 import {Observable} from 'rxjs/internal/Observable';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
-import {FirebaseService} from '../../service/firebase.service';
+import {FirebaseService} from '../../services/firebase.service';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-todo-view',
@@ -21,7 +21,7 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   stopSubscription: Subject<boolean> = new Subject<boolean>();
   private parentId: any;
 
-  constructor(private authenticatorFB: AngularFireAuth, private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -29,11 +29,11 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.authenticatorFB.auth.signInAnonymously();
+    this.authenticationService.signingWithGoogle();
   }
 
   logout() {
-    this.authenticatorFB.auth.signOut();
+    this.authenticationService.logout();
   }
 
   send(desc: string) {
