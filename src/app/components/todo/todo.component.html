@@ -3,7 +3,7 @@
          (click)="completeTodo()">
   <label [ngClass]="{'todo-title':true, 'todo-complete':todo.complete}">{{todo.title}}</label>
   <div *ngIf="isHovered" class="bin-container">
-    <input class="delete-todo" type="image" src="../../../assets/images/delete-button.svg" (click)="deleteTodo()">
+    <input class="delete-todo" type="image" src="./assets/images/delete-button.svg" (click)="deleteTodo()">
   </div>
 </div>
 <div class="child" *ngFor="let t of todo.children">
