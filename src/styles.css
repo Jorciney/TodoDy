@@ -44,32 +44,31 @@ body {
 /****************************************************************
 *styling shadows
 ****************************************************************/
-.shadow {
+
+.box *:last-child {
+  margin-bottom: 0;
+}
+
+.box-4 {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   position: relative;
-  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+  width: 80%;
+  margin: 20px 0px 0px 40px;
 }
 
-.shadow:before, .shadow:after {
-  position: absolute;
+.box-content {
+  background: none repeat scroll 0 0 #FFFFFF;
+  background-color: #f3f3f3;
+  position: relative;
+  z-index: 1;
+}
+.box-4:after {
+  border-radius: 0 0 50% 50% / 0 0 20px 20px;
+  bottom: 0;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
   content: "";
-  bottom: 18px;
-  left: 15px;
-  top: 35%;
-  width: 45%;
-  background: #9B7468;
-  z-index: -1;
-  -webkit-box-shadow: 0 20px 15px #9B7468;
-  -moz-box-shadow: 0 20px 15px #9B7468;
-  box-shadow: 0 20px 15px #9B7468;
-  -webkit-transform: rotate(-6deg);
-  -moz-transform: rotate(-6deg);
-  transform: rotate(-6deg);
-}
-
-.shadow:after {
-  -webkit-transform: rotate(6deg);
-  -moz-transform: rotate(6deg);
-  transform: rotate(6deg);
-  right: 15px;
-  left: auto;
+  height: 20px;
+  left: 10px;
+  position: absolute;
+  right: 10px;
 }
