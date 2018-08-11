@@ -30,10 +30,10 @@ const routes: Routes = [
     FormsModule,
     AngularFireModule.initializeApp({
       apiKey: 'AIzaSyBhNRdf-ZUtbpzfI5UaykRNqMgbodGBZBY',
-      authDomain: 'project-258941864321.firebaseapp.com',
+      authDomain: 'jdc-todody.firebaseapp.com',
       databaseURL: 'https://jdc-todody.firebaseio.com/',
-      storageBucket: '',
-      messagingSenderId: ''
+      storageBucket: 'jdc-todody.appspot.com',
+      messagingSenderId: '258941864321'
     }),
     AngularFireDatabaseModule,
     AngularFireAuthModule

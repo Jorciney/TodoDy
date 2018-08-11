@@ -1,19 +1,23 @@
 <div class="todo-body">
+  <div *ngIf="authenticationService.user | async as user">
+    <h2>Hello {{user.displayName}}</h2>
+    <img [src]="user.photoURL">
+  </div>
   <button (click)="login()" *ngIf="!(user | async)?.uid">Anonymous Login</button>
-  <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
+  <button (click)="logout()" *ngIf="authenticationService.user | async as user">Logout</button>
   <div class="box box-4">
     <div class="box-content">
       <input type="text" class="todo-input-field" placeholder="Enter a todo" autofocus="" [(ngModel)]="todo.title"
              (keyup.enter)="addTodo()">
     </div>
   </div>
-    <div>
-      <ul>
-        <li *ngFor="let todo of allTodos" class="todo-list">
-          <div (mouseover)="mouseOver(todo)" (mouseleave)="mouseLeave(todo)">
-            <app-todo [todo]="todo" [isHovered]="todo.isHovered"></app-todo>
-          </div>
-        </li>
-      </ul>
-    </div>
+  <div>
+    <ul>
+      <li *ngFor="let todo of allTodos" class="todo-list">
+        <div (mouseover)="mouseOver(todo)" (mouseleave)="mouseLeave(todo)">
+          <app-todo [todo]="todo" [isHovered]="todo.isHovered"></app-todo>
+        </div>
+      </li>
+    </ul>
   </div>
+</div>

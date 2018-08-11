@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class AuthenticationService {
 
-  private user: Observable<firebase.User>;
+  public user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
@@ -19,8 +19,6 @@ export class AuthenticationService {
         if (user) {
           this.userDetails = user;
           console.log(this.userDetails);
-        } else {
-          this.userDetails = null;
         }
       }
     );
@@ -31,7 +29,8 @@ export class AuthenticationService {
   }
 
   signingWithGoogle(): Promise<any> {
-    return this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.firebaseAuth.auth.signInWithPopup(provider);
   }
 
   isLoggedIn() {

@@ -1,8 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from '../../model/todo';
 import {AngularFireList} from 'angularfire2/database';
-import * as firebase from 'firebase';
-import {Observable} from 'rxjs/internal/Observable';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
 import {FirebaseService} from '../../services/firebase.service';
@@ -15,13 +13,12 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class TodoViewComponent implements OnInit, OnDestroy {
   todo = new Todo();
-  user: Observable<firebase.User>;
   list: AngularFireList<any>;
   allTodos: Array<Todo> = [];
   stopSubscription: Subject<boolean> = new Subject<boolean>();
   private parentId: any;
 
-  constructor(private firebaseService: FirebaseService, private authenticationService: AuthenticationService) {
+  constructor(private firebaseService: FirebaseService, public authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
