@@ -1,10 +1,4 @@
 <div class="todo-body">
-  <div *ngIf="authenticationService.user | async as user">
-    <h2>Hello {{user.displayName}}</h2>
-    <img [src]="user.photoURL">
-  </div>
-  <button (click)="login()" *ngIf="!(user | async)?.uid">Anonymous Login</button>
-  <button (click)="logout()" *ngIf="authenticationService.user | async as user">Logout</button>
   <div class="box box-4">
     <div class="box-content">
       <input type="text" class="todo-input-field" placeholder="Enter a todo" autofocus="" [(ngModel)]="todo.title"

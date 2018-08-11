@@ -12,6 +12,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {FirebaseService} from './services/firebase.service';
 import {RouterModule, Routes} from '@angular/router';
+import {ProfileComponent} from './components/profile/profile.component';
 
 const routes: Routes = [
   {path: '**', component: AppComponent}
@@ -22,7 +23,8 @@ const routes: Routes = [
     AppComponent,
     TodoViewComponent,
     TodoComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

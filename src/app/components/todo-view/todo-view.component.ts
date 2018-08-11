@@ -25,14 +25,6 @@ export class TodoViewComponent implements OnInit, OnDestroy {
     this.fetchTodos();
   }
 
-  login() {
-    this.authenticationService.signingWithGoogle();
-  }
-
-  logout() {
-    this.authenticationService.logout();
-  }
-
   send(desc: string) {
   }
 

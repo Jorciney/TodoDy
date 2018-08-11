@@ -3,5 +3,12 @@
   font-size: 15vw;
   font-weight: 500;
   color: rgba(255, 248, 241, 0.58);
-  text-align: center;
+  padding-left: 12vw;
+  width: 80%;
+}
+.header-body{
+  display: flex;
+}
+.profile{
+  width: 20%;
 }
