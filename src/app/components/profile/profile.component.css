@@ -1,0 +1,68 @@
+.profile-picture {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+
+  margin: 1em auto;
+  background-size: cover;
+  background: no-repeat center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  box-shadow: 2px 3px 3px rgba(0, 0, 0.2, 0.6);
+}
+
+.profile-body {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+.btn-signing {
+  font-size: 18px;
+  margin: 50px;
+  border: none;
+  background-color: #44c767;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  padding: 10px 15px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+}
+
+.btn-signing:hover {
+  background-color: #296375;
+}
+
+.btn-signing:active, .btn-signout:active {
+  position: relative;
+  top: 1px;
+}
+
+h2{
+  padding:0 0;
+  margin-top: 0;
+  margin-left: auto;
+  margin-bottom: 10px;
+  font-family: Montserrat-Regular;
+  color: #FFFFFF;
+}
+.logout-btn {
+  margin-left:80%;
+  height: 5vh;
+  vertical-align: text-bottom;
+}
+
+a input:last-child {
+  display: none;
+}
+a:hover input:last-child {
+  display: block;
+}
+a:hover input:first-child {
+  display: none;
+}

@@ -1,0 +1,11 @@
+<div class="profile-body">
+  <div *ngIf="authenticationService.user | async as user">
+    <img class="profile-picture" [src]="user.photoURL">
+    <h2>{{user.displayName}}</h2>
+    <a>
+    <input class="logout-btn" type="image" src="./assets/images/logout.svg" (click)="logout()">
+    <input class="logout-btn" type="image" src="./assets/images/logout-hover.svg" (click)="logout()">
+    </a>
+  </div>
+  <button *ngIf="!(authenticationService.user | async)?.uid" class="btn-signing" (click)="login()">Login</button>
+</div>
