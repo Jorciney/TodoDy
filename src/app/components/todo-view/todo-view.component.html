@@ -7,7 +7,7 @@
   </div>
   <div>
     <ul>
-      <li *ngFor="let todo of allTodos" class="todo-list">
+      <li *ngFor="let todo of firebaseService.allTodos | async" class="todo-list">
         <div (mouseover)="mouseOver(todo)" (mouseleave)="mouseLeave(todo)">
           <app-todo [todo]="todo" [isHovered]="todo.isHovered"></app-todo>
         </div>

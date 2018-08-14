@@ -5,39 +5,37 @@ import {Todo} from '../model/todo';
 import {Observable} from 'rxjs/internal/Observable';
 import 'rxjs-compat/add/operator/max';
 import {Subject} from 'rxjs/Subject';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Injectable()
 export class FirebaseService {
-  todosKeyValues: Map<string, Todo> = new Map();
+  private todosKeyValues: Map<string, Todo> = new Map();
   allTodos: Observable<Array<any>>;
   private firebaseList: AngularFireList<any>;
   stopSubscription: Subject<boolean> = new Subject<boolean>();
+  private userId: string;
+  private PATH_ROOT = '/';
 
-  constructor(private databaseFB: AngularFireDatabase) {
+  constructor(private databaseFB: AngularFireDatabase, private authFirebaseService: AngularFireAuth) {
     this.fetchKeyValues();
-    this.firebaseList = this.databaseFB.list('/');
+    this.fetchUserId();
+    this.firebaseList = this.databaseFB.list(this.PATH_ROOT);
   }
 
   public getAllTodosFromDB(): Observable<Array<any>> {
-    if (this.allTodos) {
-      return this.allTodos;
-    }
-    return this.allTodos = this.databaseFB.list('/').valueChanges();
+    return this.allTodos = this.databaseFB.list(this.PATH_ROOT).valueChanges();
   }
 
   public addTodo(todo: Todo): void {
-    if (!todo.id || todo.id < 0) {
-      todo.id = this.generateId();
-    }
-    this.databaseFB.list('/').push(todo);
+    this.firebaseList.push(todo);
   }
 
-  public deleteTodo(id: number): void {
-    this.databaseFB.list('/').snapshotChanges().pipe(takeUntil(this.stopSubscription)).subscribe(
+  public deleteTodo(title: string): void {
+    this.firebaseList.snapshotChanges().pipe(takeUntil(this.stopSubscription)).subscribe(
       value => {
         value.forEach(todo => {
-          if (todo.payload.val().id === id) {
-            this.databaseFB.object('/' + todo.payload.key).remove();
+          if (todo.payload.val().title === title) {
+            this.databaseFB.object(this.PATH_ROOT + todo.payload.key).remove();
           }
         });
         this.stopSubscription.next(true);
@@ -45,23 +43,37 @@ export class FirebaseService {
     );
   }
 
-  public completeTodo(id: number) {
-    const foundTodo = this.getTodo(id);
-    if (foundTodo) {
-      const updatedTodo = foundTodo;
-      updatedTodo.complete = !updatedTodo.complete;
-      this.databaseFB.object('/' + this.getKey(id)).update(updatedTodo);
-    }
+  public completeTodo(title: string) {
+    this.firebaseList.snapshotChanges().pipe(takeUntil(this.stopSubscription)).subscribe(
+      value => {
+        value.forEach(todo => {
+          if (todo.payload.val().title === title) {
+            const updatedTodo = todo.payload.val();
+            updatedTodo.complete = !updatedTodo.complete;
+            this.databaseFB.object(this.PATH_ROOT + todo.payload.key).update(updatedTodo);
+          }
+        });
+        this.stopSubscription.next(true);
+      }
+    );
   }
 
-  getKey(id: number): string {
-    const foundEntry = Array.from(this.todosKeyValues.entries()).filter(entry => entry[1].id === id).pop();
+  getTodo(title: string): any {
+    const foundEntry = this.databaseFB.list(this.PATH_ROOT, ref => ref.orderByChild('title').equalTo(title));
     return foundEntry ? foundEntry[0] : undefined;
   }
 
-  getTodo(id: number): Todo {
-    const foundEntry = Array.from(this.todosKeyValues.entries()).filter(entry => entry[1].id === id).pop();
-    return foundEntry ? foundEntry[1] : undefined;
+  private fetchUserId() {
+    this.authFirebaseService.authState.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        this.PATH_ROOT = `todos/${user.uid}/`;
+      } else {
+        this.PATH_ROOT = 'todos/anonymous/';
+      }
+      this.firebaseList = this.databaseFB.list(this.PATH_ROOT);
+      this.getAllTodosFromDB();
+    });
   }
 
   private fetchKeyValues() {
@@ -74,10 +86,4 @@ export class FirebaseService {
     });
   }
 
-  private generateId() {
-    let id = -1;
-    const values = this.todosKeyValues.values();
-    id = Math.max.apply(Math, Array.from(values).map(todo => todo.id)) + 1;
-    return id;
-  }
 }

@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from '../../model/todo';
 import {AngularFireList} from 'angularfire2/database';
-import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
 import {FirebaseService} from '../../services/firebase.service';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -16,22 +15,14 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   list: AngularFireList<any>;
   allTodos: Array<Todo> = [];
   stopSubscription: Subject<boolean> = new Subject<boolean>();
-  private parentId: any;
 
-  constructor(private firebaseService: FirebaseService, public authenticationService: AuthenticationService) {
+  constructor(protected firebaseService: FirebaseService, public authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.fetchTodos();
-  }
-
-  send(desc: string) {
   }
 
   public addTodo() {
-    if (this.parentId) {
-      this.todo.parentId = this.parentId;
-    }
     this.firebaseService.addTodo(this.todo);
     this.todo = new Todo();
   }
@@ -48,12 +39,5 @@ export class TodoViewComponent implements OnInit, OnDestroy {
     this.stopSubscription.next(true);
   }
 
-  private fetchTodos() {
-    this.firebaseService.getAllTodosFromDB()
-      .pipe(takeUntil(this.stopSubscription)).subscribe(todos => {
-        this.allTodos = todos;
-      }
-    );
-  }
 
 }

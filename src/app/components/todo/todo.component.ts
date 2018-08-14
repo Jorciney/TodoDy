@@ -23,10 +23,10 @@ export class TodoComponent implements OnInit {
   }
 
   public deleteTodo() {
-    this.firebaseService.deleteTodo(this.todo.id);
+    this.firebaseService.deleteTodo(this.todo.title);
   }
 
   public completeTodo() {
-    this.firebaseService.completeTodo(this.todo.id);
+    this.firebaseService.completeTodo(this.todo.title);
   }
 }

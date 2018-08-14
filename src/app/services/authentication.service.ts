@@ -3,22 +3,23 @@ import {Observable} from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
+import {FirebaseService} from './firebase.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
 
+export class AuthenticationService {
   public user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
+  public  ROOT = '/';
 
-  constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firebaseService: FirebaseService) {
     this.user = this.firebaseAuth.authState;
     this.user.subscribe(
       (user) => {
         if (user) {
           this.userDetails = user;
-          console.log(this.userDetails);
         }
       }
     );
