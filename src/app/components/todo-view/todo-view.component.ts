@@ -16,7 +16,7 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   allTodos: Array<Todo> = [];
   stopSubscription: Subject<boolean> = new Subject<boolean>();
 
-  constructor(protected firebaseService: FirebaseService, public authenticationService: AuthenticationService) {
+  constructor(public firebaseService: FirebaseService, public authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
