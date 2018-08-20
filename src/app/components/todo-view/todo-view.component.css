@@ -1,6 +1,9 @@
 .todo-body {
   margin: 20px;
 }
+.flexible{
+  display: flex;
+}
 
 .todo-input-field {
   font-family: Bariol-Italic;

@@ -15,6 +15,7 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   list: AngularFireList<any>;
   allTodos: Array<Todo> = [];
   stopSubscription: Subject<boolean> = new Subject<boolean>();
+  date = new Date();
 
   constructor(public firebaseService: FirebaseService, public authenticationService: AuthenticationService) {
   }
