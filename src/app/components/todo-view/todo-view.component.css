@@ -1,6 +1,9 @@
 .todo-body {
   margin: 20px;
 }
+.flexible{
+  display: flex;
+}
 
 .todo-input-field {
   font-family: Bariol-Italic;
@@ -10,7 +13,9 @@
   outline: none;
   text-align: center;
 }
-
+.datepicker{
+  line-height: 1.7em;
+}
 .todo-list{
   list-style-type: none;
 
