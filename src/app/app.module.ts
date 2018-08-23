@@ -13,6 +13,8 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {FirebaseService} from './services/firebase.service';
 import {RouterModule, Routes} from '@angular/router';
 import {ProfileComponent} from './components/profile/profile.component';
+import {NgDatepickerModule} from 'ng2-datepicker';
+import {DatePipe} from '@angular/common';
 
 const routes: Routes = [
   {path: '**', component: AppComponent}
@@ -29,6 +31,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
+    NgDatepickerModule,
     FormsModule,
     AngularFireModule.initializeApp({
       apiKey: 'AIzaSyBhNRdf-ZUtbpzfI5UaykRNqMgbodGBZBY',
@@ -40,7 +43,8 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [FirebaseService],
+  providers: [FirebaseService,
+    DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

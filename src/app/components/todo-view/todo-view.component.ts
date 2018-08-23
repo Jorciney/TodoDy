@@ -4,6 +4,7 @@ import {AngularFireList} from 'angularfire2/database';
 import {Subject} from 'rxjs/Subject';
 import {FirebaseService} from '../../services/firebase.service';
 import {AuthenticationService} from '../../services/authentication.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-todo-view',
@@ -17,13 +18,17 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   stopSubscription: Subject<boolean> = new Subject<boolean>();
   date = new Date();
 
-  constructor(public firebaseService: FirebaseService, public authenticationService: AuthenticationService) {
+  constructor(public firebaseService: FirebaseService,
+              public authenticationService: AuthenticationService,
+              private datePipe: DatePipe
+  ) {
   }
 
   ngOnInit() {
   }
 
   public addTodo() {
+    this.todo.date = this.datePipe.transform(this.date, 'dd-MM-yyy');
     this.firebaseService.addTodo(this.todo);
     this.todo = new Todo();
   }
