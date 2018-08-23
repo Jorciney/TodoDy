@@ -16,7 +16,7 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   list: AngularFireList<any>;
   allTodos: Array<Todo> = [];
   stopSubscription: Subject<boolean> = new Subject<boolean>();
-  date = new Date();
+  date: Date;
 
   constructor(public firebaseService: FirebaseService,
               public authenticationService: AuthenticationService,
@@ -45,5 +45,8 @@ export class TodoViewComponent implements OnInit, OnDestroy {
     this.stopSubscription.next(true);
   }
 
+  newDate(): void{
+    this.date = new Date();
+  }
 
 }
