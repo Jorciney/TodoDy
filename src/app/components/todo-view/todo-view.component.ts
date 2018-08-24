@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from '../../model/todo';
-import {AngularFireList} from 'angularfire2/database';
 import {Subject} from 'rxjs/Subject';
 import {FirebaseService} from '../../services/firebase.service';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -13,10 +12,9 @@ import {DatePipe} from '@angular/common';
 })
 export class TodoViewComponent implements OnInit, OnDestroy {
   todo = new Todo();
-  list: AngularFireList<any>;
-  allTodos: Array<Todo> = [];
   stopSubscription: Subject<boolean> = new Subject<boolean>();
-  date: Date;
+  date = new Date();
+  isDateSelected: boolean;
 
   constructor(public firebaseService: FirebaseService,
               public authenticationService: AuthenticationService,
@@ -28,9 +26,12 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   }
 
   public addTodo() {
-    this.todo.date = this.datePipe.transform(this.date, 'dd-MM-yyy');
+    if (this.isDateSelected) {
+      this.todo.date = this.datePipe.transform(this.date, 'dd-MM-yyy');
+    }
     this.firebaseService.addTodo(this.todo);
     this.todo = new Todo();
+    this.isDateSelected = false;
   }
 
   public mouseOver(t: Todo) {
@@ -45,8 +46,8 @@ export class TodoViewComponent implements OnInit, OnDestroy {
     this.stopSubscription.next(true);
   }
 
-  newDate(): void{
-    this.date = new Date();
+  selectDate(): void {
+    this.isDateSelected = true;
   }
 
 }
