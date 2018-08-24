@@ -1,10 +1,14 @@
 <div class="todo-body">
-  <div class="box box-4">
-    <div class="box-content flexible">
-      <input type="text" class="todo-input-field" placeholder="Enter a todo" autofocus="" [(ngModel)]="todo.title"
-             (keyup.enter)="addTodo()">
-      <ng-datepicker class="datepicker" [(ngModel)]="date" (click)="newDate()" (keyup.enter)="addTodo()"></ng-datepicker>
+  <div class="flexible margin-bottom">
+    <div class="left box box-4">
+      <div class="box-content flexible">
+        <input type="text" class="todo-input-field" placeholder="Enter a todo" autofocus="" [(ngModel)]="todo.title"
+               (keyup.enter)="addTodo()">
+      </div>
     </div>
+    <ng-datepicker class="box datepicker" [(ngModel)]="date" (click)="newDate()"
+                   (keyup.enter)="addTodo()"></ng-datepicker>
+    <!--<button class="btn" (click)="addTodo()">></button>-->
   </div>
   <div>
     <ul>

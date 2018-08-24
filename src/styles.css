@@ -53,12 +53,10 @@ body {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   position: relative;
   width: 80%;
-  margin: 20px 0px 0px 40px;
 }
 
 .box-content {
-  background: none repeat scroll 0 0 #FFFFFF;
-  background-color: #f3f3f3;
+  background: #f3f3f3 none repeat scroll 0 0;
   position: relative;
   z-index: 1;
 }
@@ -71,4 +69,11 @@ body {
   left: 10px;
   position: absolute;
   right: 10px;
+}
+.ngx-datepicker-input{
+  width: 7vw !important;
+  padding: 1px !important;
+  font-family: Bariol-Italic;
+  line-height: 3em;
+  text-align: center;
 }
