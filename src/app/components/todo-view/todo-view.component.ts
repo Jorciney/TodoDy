@@ -29,9 +29,11 @@ export class TodoViewComponent implements OnInit, OnDestroy {
     if (this.isDateSelected) {
       this.todo.date = this.datePipe.transform(this.date, 'dd-MM-yyy');
     }
-    this.firebaseService.addTodo(this.todo);
-    this.todo = new Todo();
-    this.isDateSelected = false;
+    if (this.isTodoValid()) {
+      this.firebaseService.addTodo(this.todo);
+      this.todo = new Todo();
+      this.isDateSelected = false;
+    }
   }
 
   public mouseOver(t: Todo) {
@@ -50,4 +52,7 @@ export class TodoViewComponent implements OnInit, OnDestroy {
     this.isDateSelected = true;
   }
 
+  private isTodoValid(): boolean {
+    return !!(this.todo && this.todo.title);
+  }
 }

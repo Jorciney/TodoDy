@@ -71,9 +71,9 @@ body {
   right: 10px;
 }
 .ngx-datepicker-input{
-  width: 7vw !important;
+  width: 100% !important;
   padding: 1px !important;
-  font-family: Bariol-Italic;
+  font-family: Bariol-Italic, serif;
   line-height: 3em;
   text-align: center;
 }

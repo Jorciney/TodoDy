@@ -22,7 +22,7 @@
 .datepicker {
   line-height: 1.7em;
   border: 0.025em #a3a3a3 solid !important;
-
+  width: 20%;
 }
 
 .margin-bottom {
