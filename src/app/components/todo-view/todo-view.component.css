@@ -13,7 +13,6 @@
 .todo-input-field {
   font-family: Bariol-Italic;
   font-size: 24px;
-  width: 100%;
   line-height: 1.7em;
   outline: none;
   text-align: center;
@@ -21,8 +20,7 @@
 
 .datepicker {
   line-height: 1.7em;
-  border: 0.025em #a3a3a3 solid !important;
-  width: 20%;
+  /*width: 20%;*/
 }
 
 .margin-bottom {
@@ -52,4 +50,19 @@ ul {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
   -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+
+
+/*tablet*/
+@media (max-width: 767px) {
+  .flexible {
+    display: grid;
+  }
+}
+
+/*mobile*/
+@media(max-width: 480px){
+  .flexible {
+    display: grid;
+  }
 }

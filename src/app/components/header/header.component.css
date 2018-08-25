@@ -1,14 +1,28 @@
 .header-title {
   font-family: Bariol-Regular, SansSerif;
-  font-size: 15vw;
   font-weight: 500;
   color: rgba(255, 248, 241, 0.58);
   padding-left: 12vw;
-  width: 80%;
+  /*width: 80%;*/
 }
-.header-body{
-  display: flex;
+
+
+/*tablet*/
+@media (min-width: 767px) {
+  .header-body{
+    display: flex;
+  }
+  .header-title {
+    font-size: 15vw;
+  }
 }
-.profile{
-  width: 20%;
+
+/*mobile*/
+@media(max-width: 766px){
+  .header-body{
+    display: grid;
+  }
+  .header-title {
+    font-size: 50px;
+  }
 }

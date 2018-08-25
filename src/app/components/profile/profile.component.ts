@@ -8,7 +8,9 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public authenticationService: AuthenticationService) { }
+
+  constructor(public authenticationService: AuthenticationService) {
+  }
 
   ngOnInit() {
   }
@@ -21,4 +23,11 @@ export class ProfileComponent implements OnInit {
     this.authenticationService.logout();
   }
 
+  get isTablet(): boolean {
+    return window.screen.width <= 767 && window.screen.width > 360;
+  }
+
+  get isMobile(): boolean {
+    return window.screen.width <= 360;
+  }
 }
