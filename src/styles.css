@@ -77,3 +77,9 @@ body {
   line-height: 3em;
   text-align: center;
 }
+.main-calendar-container{
+  width: 95% !important;
+}
+.topbar-container{
+  width: 90% !important;
+}
