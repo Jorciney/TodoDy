@@ -1,7 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
+
 /* You can add global styles to this file, and also import other style files */
 
 /*BASE COLORS*/
-  /*#e6af4b*/
+/*#e6af4b*/
 /*#e05038*/
 /*#f2cbbc*/
 /*#334431*/
@@ -24,6 +26,7 @@
   font-family: 'Montserrat-Regular';
   src: url("./assets/fonts/Montserrat-Regular.ttf");
 }
+
 html {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -37,8 +40,8 @@ body {
 }
 
 /*.row {*/
-  /*width: 100%;*/
-  /*margin: 0 auto;*/
+/*width: 100%;*/
+/*margin: 0 auto;*/
 /*}*/
 
 /****************************************************************
@@ -60,6 +63,7 @@ body {
   position: relative;
   z-index: 1;
 }
+
 .box-4:after {
   border-radius: 0 0 50% 50% / 0 0 20px 20px;
   bottom: 0;
@@ -70,41 +74,59 @@ body {
   position: absolute;
   right: 10px;
 }
-.ngx-datepicker-input{
+
+.ngx-datepicker-input {
   padding: 1px !important;
-  font-family: Bariol-Italic, serif;
-  line-height: 3em;
   text-align: center;
-  border: 0.025em #a3a3a3 solid !important;
+  font-size: 24px !important;
+  line-height: 1.7em !important;
+  font-family: Bariol-Italic, serif !important;
 
 }
-.main-calendar-container{
-  width: 95% !important;
+
+.box datepicker co2 ng-untouched ng-pristine ng-valid {
+  height: inherit;
 }
-.topbar-container{
+
+.ngx-datepicker-container {
+  height: 100%;
+  border: 0 !important;
+  padding: 1px !important;
+  font-size: 24px;
+
+}
+
+.main-calendar-container {
+  width: 95% !important;
+
+}
+
+.topbar-container {
   width: 90% !important;
 }
 
-
 /*tablet*/
 @media (min-width: 767px) {
-  .ngx-datepicker-input{
+  .ngx-datepicker-input {
     width: 100% !important;
+  }
+
+  .ngx-datepicker-container {
+    width: 200px;
   }
 }
 
 /*mobile*/
-@media(max-width: 767px){
-  .ngx-datepicker-input{
+@media (max-width: 767px) {
+  .ngx-datepicker-input {
     width: 96% !important;
   }
 }
+
 /**
 *** SIMPLE GRID
 *** (C) ZACH COLE 2016
 **/
-
-@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
 
 /* UNIVERSAL */
 
@@ -272,27 +294,30 @@ p {
 .col-12-sm {
   width: 96%;
 }
-.col-100{
+
+.col-100 {
   width: 100%;
 }
 
 /*.row::after {*/
-  /*!*content: "";*!*/
-  /*!*display: table;*!*/
-  /*clear: both;*/
+/*!*content: "";*!*/
+/*!*display: table;*!*/
+/*clear: both;*/
 /*}*/
 
 .hidden-sm {
   display: none;
 }
 
-@media only screen and (min-width: 33.75em) {  /* 540px */
+@media only screen and (min-width: 33.75em) {
+  /* 540px */
   .container {
     width: 80%;
   }
 }
 
-@media only screen and (min-width: 45em) {  /* 720px */
+@media only screen and (min-width: 45em) {
+  /* 720px */
   .col-1 {
     width: 4.33%;
   }
@@ -330,7 +355,7 @@ p {
   }
 
   .col-10 {
-    width: 79.33%;
+    width: 96%;
   }
 
   .col-11 {
@@ -340,12 +365,14 @@ p {
   .col-12 {
     width: 96%;
   }
+
   .hidden-sm {
     display: block;
   }
 }
 
-@media only screen and (min-width: 60em) { /* 960px */
+@media only screen and (min-width: 60em) {
+  /* 960px */
   .container {
     width: 75%;
     max-width: 60rem;
