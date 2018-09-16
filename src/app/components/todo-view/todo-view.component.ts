@@ -55,4 +55,12 @@ export class TodoViewComponent implements OnInit, OnDestroy {
   private isTodoValid(): boolean {
     return !!(this.todo && this.todo.title);
   }
+
+  altText(): string {
+    return 'Sort on Date';
+  }
+
+  sort() {
+   console.log('should sort on date or on name');
+  }
 }

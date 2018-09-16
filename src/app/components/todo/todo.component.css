@@ -17,6 +17,7 @@
 
 .todo-complete {
   text-decoration: line-through;
+  color: #acacac;
 }
 
 .delete-todo {

@@ -2,13 +2,18 @@
   <div class="flexible margin-bottom row">
     <div class=" box box-4 col-10">
       <div class="box-content flexible">
-        <input type="text" class="todo-input-field col-100" placeholder="Enter a todo" autofocus="" [(ngModel)]="todo.title"
+        <input type="text" class="todo-input-field col-100" placeholder="Enter a todo" autofocus=""
+               [(ngModel)]="todo.title"
                (keyup.enter)="addTodo()">
       </div>
     </div>
     <ng-datepicker class="box datepicker co2" [(ngModel)]="date" (click)="selectDate()"
                    (keyup.enter)="addTodo()"></ng-datepicker>
+
     <!--<button class="btn" (click)="addTodo()">></button>-->
+  </div>
+  <div class="box">
+    <input class="sort" type="image" alt="{{altText()}}" src="./assets/images/sort.svg" (click)="sort()">
   </div>
   <div>
     <ul>
